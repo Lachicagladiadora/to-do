@@ -6,17 +6,6 @@ The input is used to create new to-do and also as a search engine as you type.
 
 ## Responsive
 
-### Mobile
-
-![mobile](./public/mobile.png)
-
-### Tablet
-
-![tablet](./public/tablet.png)
-
-### Desktop
-
-![desktop](./public/desktop.png)
 
 ## How to run
 
