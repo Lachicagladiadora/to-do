@@ -46,12 +46,12 @@ export const FormTask = ({
           return !newValue ? setNewTodoValue("") : setNewTodoValue(newValue);
         }}
         placeholder="Write a new to-do"
-        className="text-2xl rounded-full md:text-4xl"
+        className="text-2xl rounded-lg md:text-4xl"
       />
       <Button
         title="Save To-Do"
         aria-label="Button save To-Do"
-        className="p-2 text-3xl rounded-full md:p-3 md:text-5xl"
+        className="p-2 text-xl rounded-lg md:p-3 md:text-3xl"
       >
         <FontAwesomeIcon icon={faRightLong} />
       </Button>

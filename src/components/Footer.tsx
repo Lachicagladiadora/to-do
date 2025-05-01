@@ -8,19 +8,15 @@ type FooterProps = {
 
 export const Footer = ({ style }: FooterProps) => {
   return (
-    <footer style={{ ...style }}>
-      <span>by Lachicagladiadora</span>
-      <a
-        href="https://github.com/Lachicagladiadora"
-        target="_blank"
-        className="icon-footer"
-      >
-        <FontAwesomeIcon
-          icon={faGithub}
-          style={{ background: "transparent" }}
-        />
+    <footer
+      style={{ ...style }}
+      className="w-full bg-black text-teal-lighter flex gap-2 items-center justify-center font-mono text-md"
+    >
+      by Lachicagladiadora
+      <a href="https://github.com/Lachicagladiadora" target="_blank">
+        <FontAwesomeIcon icon={faGithub} />
       </a>
-      <span style={{ background: "transparent" }}>2024</span>
+      2024
     </footer>
   );
 };

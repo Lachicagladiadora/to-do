@@ -19,7 +19,7 @@ export const App = () => {
   const [todos, setTodos] = useState<TodoData[]>([]);
 
   const [query, setQuery] = useState<string>("");
-  const [procecedTodos, setProcecedTodos] = useState<TodoData[]>([]);
+  const [processedTodos, setProcessedTodos] = useState<TodoData[]>([]);
   const [showCompleted, setShowCompleted] = useState(true);
 
   const createNewTodo = (todoContent: string): void => {
@@ -45,17 +45,10 @@ export const App = () => {
   const onFilterNotes = useCallback(
     (query: string) => {
       const filteredNotes = todos.filter((cur) => cur.content.includes(query));
-      setProcecedTodos(filteredNotes);
+      setProcessedTodos(filteredNotes);
     },
     [todos]
   );
-
-  useEffect(() => {
-    const data = localStorage.getItem("ToDoList");
-    if (data) {
-      setTodos(JSON.parse(data));
-    }
-  }, []);
 
   useEffect(() => {
     localStorage.setItem("ToDoList", JSON.stringify(todos));
@@ -65,41 +58,23 @@ export const App = () => {
     onFilterNotes(query);
   }, [query, onFilterNotes]);
 
+  useEffect(() => {
+    const data = localStorage.getItem("ToDoList");
+    console.log({ data });
+    if (!data) return;
+    setTodos(JSON.parse(data));
+  }, []);
+
   return (
-    <div
-      style={{
-        height: "100%",
-        display: "flex",
-        flexDirection: "column",
-      }}
-    >
+    <div className="h-full flex flex-col">
       <header>
         <h1 className="title">
           <FontAwesomeIcon icon={faListCheck} className="icon-title" /> to - do
         </h1>
       </header>
-      <main
-        style={{
-          width: "100%",
-          flex: 1,
-          display: "flex",
-          flexDirection: "column",
-          padding: "0px 24px",
-        }}
-      >
+      <main className="w-full min-h-[64dvh] h-full flex-1 flex flex-col px-4 py-6">
         {/* filter todos */}
-        <section
-          style={{
-            margin: "auto",
-            maxWidth: "900px",
-            flex: `${todos.length > 0 ? "" : "1"}`,
-            width: "100%",
-            display: "flex",
-            flexDirection: "column",
-            alignItems: "center",
-            justifyContent: "center",
-          }}
-        >
+        <section className="m-auto h-full max-w-[900px] flex-1 w-full flex flex-col items-center justify-center">
           <FormTask
             createNewTodo={createNewTodo}
             onChangeInputCallback={onFilterNotes}
@@ -107,15 +82,7 @@ export const App = () => {
             setNewTodoValue={setQuery}
           />
           {!todos.length && (
-            <p
-              style={{
-                textAlign: "center",
-                opacity: "0.5",
-                color: "white",
-                fontSize: "24px",
-                padding: "40px 0px",
-              }}
-            >
+            <p className="text-center text-white/50 text-lg px-10 py-5">
               You do not have todos yet
             </p>
           )}
@@ -124,13 +91,13 @@ export const App = () => {
         {todos.length !== 0 && (
           <section className="options-container">
             <div>
-              {procecedTodos.length !== todos.length && (
+              {processedTodos.length !== todos.length && (
                 <p className="options-text">
-                  You have <strong>{procecedTodos.length}</strong> to-dos that
+                  You have <strong>{processedTodos.length}</strong> to-dos that
                   start with <strong>"{query}"</strong>
                 </p>
               )}
-              {procecedTodos.length === todos.length && (
+              {processedTodos.length === todos.length && (
                 <p className="options-text">You have {todos.length} to-dos</p>
               )}
             </div>
@@ -143,7 +110,7 @@ export const App = () => {
                     ? "Button hide completed"
                     : "Button show completed"
                 }
-                className="p-2 rounded-full text-lg md:text-2xl md:p-3"
+                className="p-2 rounded-full bg-dark border-none text-lg md:text-2xl md:p-3 hover:text-teal-lighter hover:bg-teal-dark"
               >
                 <FontAwesomeIcon icon={showCompleted ? faEyeSlash : faEye} />{" "}
               </Button>
@@ -151,7 +118,7 @@ export const App = () => {
                 onClick={removeAllCompletedTodos}
                 title="Delete completed"
                 aria-label="Button delete completed"
-                className="p-2 rounded-full text-lg md:text-2xl md:p-3"
+                className="p-2 rounded-full bg-dark border-none text-lg md:text-2xl md:p-3 hover:text-teal-lighter hover:bg-teal-dark"
               >
                 <FontAwesomeIcon icon={faTrashAlt} />
               </Button>
@@ -160,25 +127,12 @@ export const App = () => {
         )}
         {/* to-dos */}
         {todos.length !== 0 && (
-          <section
-            style={{
-              margin: "0px auto",
-              flex: "1",
-              display: "flex",
-              flexDirection: "column",
-              gap: "20px",
-              alignItems: "center",
-              maxWidth: "900px",
-              width: "100%",
-              color: "white",
-              fontSize: "24px",
-            }}
-          >
-            {Boolean(todos.length) && !procecedTodos.length && (
+          <section className="mx-auto flex-1 flex flex-col gap-5 items-center max-w-[900px] w-full text-xl text-white">
+            {Boolean(todos.length) && !processedTodos.length && (
               <p>There is no todos with the query you wrote</p>
             )}
             <TodoItemList
-              todos={procecedTodos}
+              todos={processedTodos}
               allTodos={todos}
               toggleTodo={toggleTodo}
               showCompleted={false}
@@ -186,7 +140,7 @@ export const App = () => {
             />
             {showCompleted && (
               <TodoItemList
-                todos={procecedTodos}
+                todos={processedTodos}
                 allTodos={todos}
                 toggleTodo={toggleTodo}
                 showCompleted={showCompleted}

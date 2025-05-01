@@ -106,7 +106,7 @@ export const TodoItem = ({
         } rounded-full text-lg ${
           currentId === todo.id && showEditForm
             ? "text-teal-lighter"
-            : "text-teal-lighter/20 hover:bg-teal-darker hover:text-dark group-hover/todo:text-teal-lighter "
+            : "text-teal-lighter/20 hover:bg-teal-dark  hover:text-teal-lighter "
         } md:text-lg md:p-2 border-none bg-transparent`}
         onClick={() => setShowEditForm((p) => !p)}
       >
