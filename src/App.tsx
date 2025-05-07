@@ -50,18 +50,19 @@ export const App = () => {
   );
 
   useEffect(() => {
-    onFilterNotes(query);
-  }, [query, onFilterNotes]);
-
-  useEffect(() => {
-    localStorage.setItem("ToDoList", JSON.stringify(todos));
-  }, [todos]);
-
-  useEffect(() => {
     const data = localStorage.getItem("ToDoList");
     console.log("jiji", { data });
     setTodos(JSON.parse(data ?? "[]"));
   }, []);
+
+  useEffect(() => {
+    onFilterNotes(query);
+  }, [query, onFilterNotes]);
+
+  useEffect(() => {
+    if (!todos.length) return;
+    localStorage.setItem("ToDoList", JSON.stringify(todos));
+  }, [todos]);
 
   return (
     <div className="h-full flex flex-col">
