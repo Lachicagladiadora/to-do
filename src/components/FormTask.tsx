@@ -25,7 +25,7 @@ export const FormTask = ({
       if (!newTodoValue) return;
       if (newTodoValue) {
         createNewTodo(newTodoValue.trim());
-        window.localStorage.setItem("TasksList", newTodoValue);
+        // window.localStorage.setItem("TasksList", newTodoValue);
         setNewTodoValue("");
       }
     },

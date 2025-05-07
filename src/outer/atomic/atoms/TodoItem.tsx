@@ -11,9 +11,6 @@ type TodoProps = {
   todo: TodoData;
   toggleTodo: (todo: TodoData) => void;
   currentId: string;
-  // showEditForm: boolean;
-  // fnShowEditForm: Dispatch<React.SetStateAction<boolean>>;
-  fnCurrentId: Dispatch<React.SetStateAction<string>>;
   fnAllTodos: Dispatch<React.SetStateAction<TodoData[]>>;
 } & ComponentPropsWithoutRef<"li">;
 
@@ -21,46 +18,23 @@ export const TodoItem = ({
   todo,
   toggleTodo,
   currentId,
-  // fnCurrentId,
-  // showEditForm,
-  // fnShowEditForm,
   fnAllTodos,
   ...props
 }: TodoProps) => {
   const [showEditForm, setShowEditForm] = useState(false);
   const [newValue, setNewValue] = useState(todo.content);
 
-  // const onShowEditForm = (id: string) => {
-  //   // if (currentId) setShowEditForm(false);
-  //   setShowEditForm((p) => !p);
-  //   // if (id !== currentId) setShowEditForm(false);
-  //   // if (id === currentId) {
-  //   //   setShowEditForm((p) => !p);
-  //   //   // setShowEditForm(false);
-  //   // }
-  //   // fnCurrentId(id);
-  //   // setShowEditForm(true);
-  //   // if (id !== todo.id) setShowEditForm(false);
-  //   // setShowEditForm(false);
-  // };
-
   const updateTodo = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     fnAllTodos((p) =>
       p.filter((c) => (c.id === currentId ? (c.content = newValue) : c.content))
     );
-    // console.log({ e, elements: e.target, input: e.target[0].value });
     setShowEditForm(false);
   };
-
-  // useEffect(() => {
-  //   if (currentId !== todo.id) fnShowEditForm(false);
-  // }, [showEditForm, currentId, todo.id]);
 
   return (
     <li
       {...props}
-      // key={todo.id}
       className={`w-full list-none relative px-4 py-2 flex items-center justify-between gap-3 rounded-xl group/todo hover:bg-dark ${
         showEditForm ? "flex-row-reverse" : "flex-row"
       }`}

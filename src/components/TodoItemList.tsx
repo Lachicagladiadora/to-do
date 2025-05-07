@@ -1,6 +1,5 @@
 import { Dispatch, useState } from "react";
 import { TodoData } from "../types";
-// import { getId } from "../utilities";
 import { TodoItem } from "../outer/atomic/atoms/TodoItem";
 
 type TodoItemListProps = {
@@ -13,37 +12,23 @@ type TodoItemListProps = {
 
 export const TodoItemList = ({
   todos,
-
   toggleTodo,
   showCompleted = false,
   fnAllTodos,
 }: TodoItemListProps) => {
   const [currentId, setCurrentId] = useState("000000");
-  // const [showEditForm, setShowEditForm] = useState(false);
 
   const todoUnique = (doneValue: boolean) => {
     return (
-      <ul
-        style={{
-          minWidth: "300px",
-          display: "grid",
-          gridTemplateColumns: "1fr",
-          gap: "8px",
-        }}
-      >
+      <ul className="min-w-[300px] grid grid-cols-[1fr] gap-2">
         {todos
           .filter((todo: { done: boolean }) => todo.done === doneValue)
           .map((todo: { content: string; done: boolean; id: string }) => (
             <TodoItem
               key={todo.id}
               todo={todo}
-              // key={getId()}
               toggleTodo={toggleTodo}
-              // allTodos={todos}
-              // showEditForm={showEditForm}
-              // fnShowEditForm={setShowEditForm}
               currentId={currentId}
-              fnCurrentId={setCurrentId}
               fnAllTodos={fnAllTodos}
               onClick={() => setCurrentId(todo.id)}
             />
@@ -52,13 +37,9 @@ export const TodoItemList = ({
     );
   };
   if (!todoUnique)
-    return (
-      <p style={{ background: "red", color: "green" }}>
-        you have no tasks done
-      </p>
-    );
+    return <p className="bg-red-500 text-green-700">you have no tasks done</p>;
   return (
-    <div className="wrapper-task" style={{ width: "100%" }}>
+    <div className="wrapper-task w-full">
       <ul>{todoUnique(showCompleted)}</ul>
     </div>
   );

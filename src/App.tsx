@@ -24,7 +24,6 @@ export const App = () => {
 
   const createNewTodo = (todoContent: string): void => {
     if (!todos.find((task) => task.content === todoContent)) {
-      console.log({ todoContent });
       setTodos([{ id: getId(), content: todoContent, done: false }, ...todos]);
     }
   };
@@ -51,18 +50,17 @@ export const App = () => {
   );
 
   useEffect(() => {
-    localStorage.setItem("ToDoList", JSON.stringify(todos));
-  }, [todos]);
-
-  useEffect(() => {
     onFilterNotes(query);
   }, [query, onFilterNotes]);
 
   useEffect(() => {
+    localStorage.setItem("ToDoList", JSON.stringify(todos));
+  }, [todos]);
+
+  useEffect(() => {
     const data = localStorage.getItem("ToDoList");
-    console.log({ data });
-    if (!data) return;
-    setTodos(JSON.parse(data));
+    console.log("jiji", { data });
+    setTodos(JSON.parse(data ?? "[]"));
   }, []);
 
   return (
