@@ -26,6 +26,20 @@
   font-family: monospace, sans-serif;
 }
 
+body::-webkit-scrollbar {
+  width: 8px; /* width of the entire scrollbar */
+}
+
+body::-webkit-scrollbar-track {
+  background: var(--black); /* color of the tracking area */
+}
+
+body::-webkit-scrollbar-thumb {
+  background-color: var(--aquamarine-darker); /* color of the scroll thumb */
+  border-radius: 6px; /* roundness of the scroll thumb */
+  border: 1px solid #0b5d3e;
+}
+
 header {
   padding-top: 30px;
   color: var(--aquamarine);
