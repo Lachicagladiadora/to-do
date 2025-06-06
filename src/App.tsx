@@ -65,7 +65,7 @@ export const App = () => {
   }, [todos]);
 
   return (
-    <div className="h-full flex flex-col">
+    <div className="h-full min-h-[100dvh] flex flex-col">
       <header>
         <h1 className="title">
           <FontAwesomeIcon icon={faListCheck} className="icon-title" /> to - do
@@ -126,7 +126,7 @@ export const App = () => {
         )}
         {/* to-dos */}
         {todos.length !== 0 && (
-          <section className="mx-auto flex-1 flex flex-col gap-5 items-center max-w-[900px] w-full text-xl text-white">
+          <section className="mx-auto flex-1 flex flex-col gap-5 items-center max-w-[900px] w-full text-xl text-white pb-5">
             {Boolean(todos.length) && !processedTodos.length && (
               <p>There is no todos with the query you wrote</p>
             )}
